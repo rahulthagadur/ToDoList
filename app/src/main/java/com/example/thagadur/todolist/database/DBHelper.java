@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.thagadur.todolist.model.ToDoData;
 import com.example.thagadur.todolist.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class DBHelper {
     }
 
     //insert values into DB
+    //insert values into DB
     public long insertContentVals(String tablename, ContentValues contentValues) {
         long id = 0;
         try {
@@ -70,9 +72,10 @@ public class DBHelper {
             id = db.insert(tablename, null, contentValues);
             db.setTransactionSuccessful();
         }catch (Exception e){
-            e.printStackTrace();}
-
-
+            e.printStackTrace();
+            System.out.println("exception of the insert command ");}finally {
+            db.endTransaction();
+        }
         return id;
     }
 
@@ -146,25 +149,26 @@ public class DBHelper {
         return value;
     }
 
-    //
-    public List<ToDoData> getAllData(){
-        List<ToDoData> toDoList=new LinkedList<>();
+    //getting all the data from the database
 
+    public List<ToDoData> getAllData(){
+        List<ToDoData> toDoList=new ArrayList<>();
+        //db=dbHelper.getReadableDatabase();
         String query="SELECT *FROM "+Constants.TO_DO_LIST;
 
-        Cursor cursor=db.rawQuery(query,null);
-        ToDoData toDoData=null;
+        Cursor cursor=dbHelper.getReadableDatabase().rawQuery(query,null);
         if (cursor.moveToFirst()){
             do {
-                toDoData=new ToDoData();
+                ToDoData toDoData=new ToDoData();
                 toDoData.setId(cursor.getString(0).toString());
                 toDoData.setTitle(cursor.getString(1));
                 toDoData.setDescription(cursor.getString(2));
-                toDoData.setDate(cursor.getString(2));
-                toDoData.setStatus(cursor.getString(2));
+                toDoData.setDate(cursor.getString(3));
+                toDoData.setStatus(cursor.getString(4));
                 toDoList.add(toDoData);
             }while (cursor.moveToNext());
         }
+        System.out.println("size"+toDoList.size());
         cursor.close();
         return toDoList;
     }

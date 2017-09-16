@@ -110,7 +110,8 @@ public class AddDetailsDialog extends Dialog {
         val.put(Constants.KEY_TITLE,titleTextView.getText().toString());
         val.put(Constants.KEY_DATE,setDatePicker.getText().toString());
         val.put(Constants.KEY_DESCRIPTION,descriptionTextView.getText().toString());
-        dbHelper.insertContentVals(Constants.TO_DO_LIST,val);
+        long id=dbHelper.insertContentVals(Constants.TO_DO_LIST,val);
+        Toast.makeText(context, "  hi"+id, Toast.LENGTH_SHORT).show();
 //        addDetailsCustomAdapter.notifyDataSetChanged();
 //        dismiss();
     }
