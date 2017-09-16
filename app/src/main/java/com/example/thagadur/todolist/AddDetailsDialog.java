@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static com.example.thagadur.todolist.MainActivity.addDetailsCustomAdapter;
+
 /**
  * Created by Thagadur on 9/15/2017.
  */
@@ -45,6 +47,7 @@ public class AddDetailsDialog extends Dialog {
 
     public AddDetailsDialog(Context context) {
         super(context);
+        this.context=context;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -56,8 +59,10 @@ public class AddDetailsDialog extends Dialog {
         //setDatePicker = (TextView) findViewById(R.id.set_date);
         setDatePicker = (EditText) findViewById(R.id.set_date);
         titleTextView= (EditText) findViewById(R.id.add_title);
+        save=(Button)findViewById(R.id.save_button);
         descriptionTextView = (EditText) findViewById(R.id.add_description);
         myCalendar = Calendar.getInstance();
+        dbHelper=DBHelper.getInstance(context);
 
         //EditText edittext= (EditText) findViewById(R.id.Birthday);
         date = new DatePickerDialog.OnDateSetListener() {
@@ -85,6 +90,9 @@ public class AddDetailsDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 inserDataIntoDB();
+                addDetailsCustomAdapter.notifyDataSetChanged();
+                dismiss();
+
             }
         });
     }
@@ -103,6 +111,8 @@ public class AddDetailsDialog extends Dialog {
         val.put(Constants.KEY_DATE,setDatePicker.getText().toString());
         val.put(Constants.KEY_DESCRIPTION,descriptionTextView.getText().toString());
         dbHelper.insertContentVals(Constants.TO_DO_LIST,val);
+//        addDetailsCustomAdapter.notifyDataSetChanged();
+//        dismiss();
     }
 
 }

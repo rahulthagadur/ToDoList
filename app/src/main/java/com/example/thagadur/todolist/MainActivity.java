@@ -14,11 +14,13 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView toDoList;
     Context context;
+    public static AddDetailsCustomAdapter addDetailsCustomAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toDoList=(RecyclerView) findViewById(R.id.to_do_list);
+        addDetailsCustomAdapter=new AddDetailsCustomAdapter(context);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this);
         toDoList.setLayoutManager(layoutManager);
     }
