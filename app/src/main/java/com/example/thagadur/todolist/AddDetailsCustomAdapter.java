@@ -2,15 +2,19 @@ package com.example.thagadur.todolist;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.thagadur.todolist.model.ToDoData;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 /**
  * Created by Thagadur on 9/14/2017.
@@ -48,7 +52,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
     }
 
 
-    public class AddDetailsHolder extends RecyclerView.ViewHolder {
+    public class AddDetailsHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView textView_title, textView_description, textView_date, textView_status;
 
         public AddDetailsHolder(View itemView) {
@@ -57,6 +61,29 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
             textView_description = (TextView) itemView.findViewById(R.id.textView_description);
             textView_status = (TextView) itemView.findViewById(R.id.textView_status);
             textView_title = (TextView) itemView.findViewById(R.id.textView_title);
+            itemView.setOnCreateContextMenuListener(this);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                   int position=getAdapterPosition();
+                    Toast.makeText(context,"Selected Position="+position,Toast.LENGTH_LONG).show();
+                    return  false;
+                }
+            });
+
         }
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Select the option");
+            menu.add(0,1,0,"Update");
+            menu.add(0,2,1,"Completed");
+        }
+
+
     }
+
+
+
 }
+
+

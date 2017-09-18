@@ -5,15 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.example.thagadur.todolist.database.DBHelper;
 import com.example.thagadur.todolist.model.ToDoData;
 import com.example.thagadur.todolist.utils.CommonUtilities;
-import com.example.thagadur.todolist.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView toDoList;
     Context context;
+    ArrayList<ToDoData> updateList;
     List<ToDoData> toDoDatas;
+    String title, description,dateTime;
     DBHelper dbHelper;
     public static AddDetailsCustomAdapter addDetailsCustomAdapter;
     @Override
@@ -37,10 +39,29 @@ public class MainActivity extends AppCompatActivity {
         toDoList=(RecyclerView) findViewById(R.id.to_do_list);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this);
         toDoList.setLayoutManager(layoutManager);
-        System.out.println("size"+toDoDatas.size());
+//        System.out.println("size"+toDoDatas.size());
         addDetailsCustomAdapter=new AddDetailsCustomAdapter(context,toDoDatas);
         toDoList.setAdapter(addDetailsCustomAdapter);
+        registerForContextMenu(toDoList);
 
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        ToDoData getdata=new ToDoData();
+
+        if (item.getTitle()=="Update"){
+            title=getdata.getTitle();
+            description=getdata.getDescription();
+            dateTime=getdata.getDate().toLowerCase();
+            updateList.add(getdata);
+            UpdateDetailsDialog updateDetailsDialog=new UpdateDetailsDialog(MainActivity.this, toDoList);
+            updateDetailsDialog.show();
+        }
+
+        return true;
     }
 
     @Override
