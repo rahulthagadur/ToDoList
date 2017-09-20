@@ -104,7 +104,7 @@ public class DBHelper {
     }
 
     //to delete the data
-    public void delete(String tablename, String where, String[] whereArgs) {
+    public void  delete(String tablename, String where, String[] whereArgs) {
         try {
             db.beginTransaction();
             db.delete(tablename, where, whereArgs);
@@ -154,7 +154,7 @@ public class DBHelper {
     public List<ToDoData> getAllData(){
         List<ToDoData> toDoList=new ArrayList<>();
         //db=dbHelper.getReadableDatabase();
-        String query="SELECT *FROM "+Constants.TO_DO_LIST;
+        String query="SELECT * FROM "+Constants.TO_DO_LIST+" where "+Constants.KEY_STATUS+" = "+0;
 
         Cursor cursor=dbHelper.getReadableDatabase().rawQuery(query,null);
         if (cursor.moveToFirst()){
@@ -172,5 +172,36 @@ public class DBHelper {
         cursor.close();
         return toDoList;
     }
+
+    public List<ToDoData> getStatusData(){
+        List<ToDoData> toDoList=new ArrayList<>();
+        //db=dbHelper.getReadableDatabase();
+        String query="SELECT * FROM "+Constants.TO_DO_LIST+" where "+Constants.KEY_STATUS+" = "+1;
+
+        Cursor cursor=dbHelper.getReadableDatabase().rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                ToDoData toDoData=new ToDoData();
+                toDoData.setId(cursor.getString(0).toString());
+                toDoData.setTitle(cursor.getString(1));
+                toDoData.setDescription(cursor.getString(2));
+                toDoData.setDate(cursor.getString(3));
+                toDoData.setStatus(cursor.getString(4));
+                toDoList.add(toDoData);
+            }while (cursor.moveToNext());
+        }
+        System.out.println("size"+toDoList.size());
+        cursor.close();
+        return toDoList;
+    }
+/*
+
+    public int completeUpdate(ArrayList<ToDoData> updateList){
+        String query="UPDATE "+ Constants.TO_DO_LIST+" SET "+Constants.KEY_STATUS+" =1 "
+                +" WHERE "+updateList.get(0).getId();
+        return
+
+    }
+*/
 
 }

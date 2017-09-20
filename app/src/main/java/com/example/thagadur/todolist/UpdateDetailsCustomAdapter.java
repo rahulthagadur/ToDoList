@@ -14,32 +14,30 @@ import com.example.thagadur.todolist.model.ToDoData;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
-
 /**
- * Created by Thagadur on 9/14/2017.
+ * Created by Thagadur on 9/20/2017.
  */
 
-public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCustomAdapter.AddDetailsHolder> {
+public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetailsCustomAdapter.UpdateDetailsHolder>  {
     Context context;
     ArrayList<ToDoData> toDoDatas;
     static int position;
     List<ToDoData> todoList = new ArrayList<>();
 
-    public AddDetailsCustomAdapter(Context context,List<ToDoData> todoList) {
+    public UpdateDetailsCustomAdapter(Context context,List<ToDoData> todoList) {
         this.context = context;
         this.todoList=todoList;
     }
 
     @Override
-    public AddDetailsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UpdateDetailsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.to_do_design, parent, false);
-        AddDetailsHolder myView = new AddDetailsHolder(view);
+        UpdateDetailsHolder myView = new UpdateDetailsHolder(view);
         return myView;
     }
 
     @Override
-    public void onBindViewHolder(AddDetailsHolder holder, int position) {
+    public void onBindViewHolder(UpdateDetailsHolder holder, int position) {
         holder.textView_title.setText(todoList.get(position).getTitle());
         holder.textView_description.setText(todoList.get(position).getDescription());
         holder.textView_date.setText(todoList.get(position).getDate());
@@ -53,10 +51,10 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
     }
 
 
-    public class AddDetailsHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    public class UpdateDetailsHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView textView_title, textView_description, textView_date, textView_status;
 
-        public AddDetailsHolder(View itemView) {
+        public UpdateDetailsHolder(View itemView) {
             super(itemView);
             textView_date = (TextView) itemView.findViewById(R.id.textView_date);
             textView_description = (TextView) itemView.findViewById(R.id.textView_description);
@@ -81,10 +79,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
         @Override
         public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select the option");
-            menu.add(0,1,0,"Update");
-            menu.add(0,2,1,"Completed");
+            menu.add(0,1,0,"Delete");
         }
     }
 }
-
-

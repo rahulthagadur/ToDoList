@@ -8,7 +8,7 @@
         android:title="Add"
         app:showAsAction="always" />
     <item
-        android:id="@+id/complete"
+        android:id="@+id/completed_display"
         android:icon="@drawable/incomplete"
         android:orderInCategory="100"
         android:title="Add"

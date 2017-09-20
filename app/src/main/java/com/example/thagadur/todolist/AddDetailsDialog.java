@@ -5,11 +5,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import android.content.Intent;
 import android.icu.util.TimeZone;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.DatePicker;
@@ -28,12 +30,14 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import static com.example.thagadur.todolist.MainActivity.addDetailsCustomAdapter;
+import static com.example.thagadur.todolist.MainActivity.mainActivity;
+import static com.example.thagadur.todolist.MainActivity.toDoDatas;
 
 /**
  * Created by Thagadur on 9/15/2017.
  */
 
-public class AddDetailsDialog extends Dialog {
+public class AddDetailsDialog extends Dialog{
     Context context;
     //DatePicker datePicker;
     TextView setDatePicker;
@@ -90,7 +94,12 @@ public class AddDetailsDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 inserDataIntoDB();
+                //toDoDatas=dbHelper.getAllData();
+//                System.out.println("hello"+toDoDatas.get(2));
+                //Toast.makeText(context, "Added successfully", Toast.LENGTH_SHORT).show();
                 addDetailsCustomAdapter.notifyDataSetChanged();
+                Intent intent=new Intent(context,MainActivity.class);
+
                 dismiss();
 
             }
@@ -104,12 +113,12 @@ public class AddDetailsDialog extends Dialog {
         setDatePicker.setText(sdf.format(myCalendar.getTime()));
     }
 
-
     public void inserDataIntoDB(){
         ContentValues val=new ContentValues();
         val.put(Constants.KEY_TITLE,titleTextView.getText().toString());
         val.put(Constants.KEY_DATE,setDatePicker.getText().toString());
         val.put(Constants.KEY_DESCRIPTION,descriptionTextView.getText().toString());
+        val.put(Constants.KEY_STATUS,0);
         long id=dbHelper.insertContentVals(Constants.TO_DO_LIST,val);
         Toast.makeText(context, "  hi"+id, Toast.LENGTH_SHORT).show();
 //        addDetailsCustomAdapter.notifyDataSetChanged();
