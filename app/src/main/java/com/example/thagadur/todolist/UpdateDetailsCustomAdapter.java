@@ -41,7 +41,7 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
         holder.textView_title.setText(todoList.get(position).getTitle());
         holder.textView_description.setText(todoList.get(position).getDescription());
         holder.textView_date.setText(todoList.get(position).getDate());
-        holder.textView_status.setText(todoList.get(position).getStatus());
+        holder.textView_status.setText(todoList.get(position).getId());
 
     }
 

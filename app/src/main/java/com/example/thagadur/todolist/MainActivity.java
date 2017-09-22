@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     String title, description, dateTime;
     DBHelper dbHelper;
     public static UpdateDetailsDialog updateDetailsDialog;
-    public static AddDetailsCustomAdapter addDetailsCustomAdapter;
+    public  AddDetailsCustomAdapter addDetailsCustomAdapter;
     public static UpdateDetailsCustomAdapter updateDetailsCustomAdapter;
 
     @Override
@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+        mainActivity=this;
         dbHelper = DBHelper.getInstance(context);
         dbHelper = CommonUtilities.getObject(context);
         toDoDatas = new ArrayList<>();
-        ///readAllData();
         toDoDatas = dbHelper.getAllData();
         updateList = new ArrayList<>();
         completedList= new ArrayList<>();
@@ -54,17 +54,32 @@ public class MainActivity extends AppCompatActivity {
         toDoList = (RecyclerView) findViewById(R.id.to_do_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         toDoList.setLayoutManager(layoutManager);
+        readAllData();
 //        System.out.println("size"+toDoDatas.size());
-        addDetailsCustomAdapter = new AddDetailsCustomAdapter(context, toDoDatas);
-        toDoList.setAdapter(addDetailsCustomAdapter);
+
         registerForContextMenu(toDoList);
 
     }
 
+    public static  MainActivity getInstance(){
+        return mainActivity;
+    }
 
     public  void readAllData(){
         toDoDatas = dbHelper.getAllData();
+        addDetailsCustomAdapter = new AddDetailsCustomAdapter(context, toDoDatas);
+        toDoList.setAdapter(addDetailsCustomAdapter);
+        addDetailsCustomAdapter.notifyDataSetChanged();
     }
+
+    public void updateAlldata(){
+        toDoDatas = dbHelper.getAllData();
+        addDetailsCustomAdapter = new AddDetailsCustomAdapter(context, toDoDatas);
+        toDoList.setAdapter(addDetailsCustomAdapter);
+        addDetailsCustomAdapter.notifyDataSetChanged();
+    }
+
+
 
 
     @Override
@@ -80,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             completedList.add(toDoDatas.get(AddDetailsCustomAdapter.position));
             ContentValues val=new ContentValues();
             val.put(Constants.KEY_STATUS,"1");
-            dbHelper.update(Constants.TO_DO_LIST,val,updateList.get(0).getId(),null);
+            dbHelper.update(Constants.TO_DO_LIST,val,completedList.get(0).getId(),null);
             updateDetailsCustomAdapter.notifyDataSetChanged();
 
             /*dbHelper.completeUpdate(updateList);

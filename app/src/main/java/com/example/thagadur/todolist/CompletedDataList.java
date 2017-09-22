@@ -19,7 +19,7 @@ import com.example.thagadur.todolist.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.thagadur.todolist.MainActivity.addDetailsCustomAdapter;
+//import static com.example.thagadur.todolist.MainActivity.addDetailsCustomAdapter;
 
 /**
  * Created by Thagadur on 9/19/2017.
@@ -38,7 +38,7 @@ public class CompletedDataList extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.completed_list);
 
         context = this;
         dbHelper = DBHelper.getInstance(context);
@@ -67,7 +67,11 @@ public class CompletedDataList extends AppCompatActivity {
             System.out.println("hellaaa"+updateList.get(0).getId());
 //            ContentValues val=new ContentValues();
 //            val.put(Constants.KEY_STATUS,"1");
-            dbHelper.delete(Constants.TO_DO_LIST,updateList.get(0).getId(),null);
+            String where = "id=?";
+            dbHelper.delete(Constants.TO_DO_LIST,where,new String[]{updateList.get(0).getId()});
+            toDoDatas = dbHelper.getStatusData();
+            updateDetailsCustomAdapter= new UpdateDetailsCustomAdapter(context, toDoDatas);
+            toDoList.setAdapter(updateDetailsCustomAdapter);
             updateDetailsCustomAdapter.notifyDataSetChanged();
         }
         return true;

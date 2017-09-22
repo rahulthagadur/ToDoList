@@ -151,6 +151,8 @@ public class DBHelper {
 
     //getting all the data from the database
 
+
+
     public List<ToDoData> getAllData(){
         List<ToDoData> toDoList=new ArrayList<>();
         //db=dbHelper.getReadableDatabase();

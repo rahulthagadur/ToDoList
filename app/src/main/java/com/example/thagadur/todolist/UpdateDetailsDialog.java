@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
-import static com.example.thagadur.todolist.MainActivity.addDetailsCustomAdapter;
+//import static com.example.thagadur.todolist.MainActivity.addDetailsCustomAdapter;
 import static com.example.thagadur.todolist.MainActivity.updateDetailsDialog;
 
 /**
@@ -73,6 +73,7 @@ public class UpdateDetailsDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 updateDataIntoDB();
+                MainActivity.getInstance().updateAlldata();
 //                addDetailsCustomAdapter.notifyDataSetChanged();
                 dismiss();
             }
@@ -86,7 +87,8 @@ public class UpdateDetailsDialog extends Dialog {
         val.put(Constants.KEY_TITLE, updateTitleTextView.getText().toString());
         val.put(Constants.KEY_DESCRIPTION, updateDescriptionTextView.getText().toString());
         val.put(Constants.KEY_DATE, updateDatePicker.getText().toString());
-        int id=dbHelper.update(Constants.TO_DO_LIST,val,updateList.get(0).getId(),null);
+        String where = "id=?";
+        int id=dbHelper.update(Constants.TO_DO_LIST,val,where,(new String[]{updateList.get(0).getId()+""}));
 
         Toast.makeText(context, "rows updates"+id, Toast.LENGTH_SHORT).show();
     }

@@ -26,9 +26,9 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
     static int position;
     List<ToDoData> todoList = new ArrayList<>();
 
-    public AddDetailsCustomAdapter(Context context,List<ToDoData> todoList) {
+    public AddDetailsCustomAdapter(Context context, List<ToDoData> todoList) {
         this.context = context;
-        this.todoList=todoList;
+        this.todoList = todoList;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
         holder.textView_title.setText(todoList.get(position).getTitle());
         holder.textView_description.setText(todoList.get(position).getDescription());
         holder.textView_date.setText(todoList.get(position).getDate());
-        holder.textView_status.setText(todoList.get(position).getStatus());
+        holder.textView_status.setText(todoList.get(position).getId());
 
     }
 
@@ -67,24 +67,21 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
                 @Override
                 public boolean onLongClick(View view) {
 
-                    position=getAdapterPosition();
+                    position = getAdapterPosition();
                     /*UpdateDetailsDialog updateDetailsDialog=new UpdateDetailsDialog(context);
                     updateDetailsDialog.show();*/
-                    Toast.makeText(context,"Selected Position="+position,Toast.LENGTH_LONG).show();
-                    return  false;
+                    Toast.makeText(context, "Selected Position=" + position, Toast.LENGTH_LONG).show();
+                    return false;
                 }
             });
         }
 
 
-
         @Override
         public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select the option");
-            menu.add(0,1,0,"Update");
-            menu.add(0,2,1,"Completed");
+            menu.add(0, 1, 0, "Update");
+            menu.add(0, 2, 1, "Completed");
         }
     }
 }
-
-

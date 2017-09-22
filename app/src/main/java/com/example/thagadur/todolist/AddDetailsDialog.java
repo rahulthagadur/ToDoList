@@ -29,7 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static com.example.thagadur.todolist.MainActivity.addDetailsCustomAdapter;
+//import static com.example.thagadur.todolist.MainActivity.addDetailsCustomAdapter;
 import static com.example.thagadur.todolist.MainActivity.mainActivity;
 import static com.example.thagadur.todolist.MainActivity.toDoDatas;
 
@@ -83,28 +83,29 @@ public class AddDetailsDialog extends Dialog{
         };
 
         setDatePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new DatePickerDialog(getContext(), date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+        @Override
+        public void onClick(View view) {
+            new DatePickerDialog(getContext(), date, myCalendar
+                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        }
+    });
         save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                inserDataIntoDB();
-                //toDoDatas=dbHelper.getAllData();
+        @Override
+        public void onClick(View view) {
+            inserDataIntoDB();
+            MainActivity.getInstance().readAllData();
+            //toDoDatas=dbHelper.getAllData();
 //                System.out.println("hello"+toDoDatas.get(2));
-                //Toast.makeText(context, "Added successfully", Toast.LENGTH_SHORT).show();
-                addDetailsCustomAdapter.notifyDataSetChanged();
-                Intent intent=new Intent(context,MainActivity.class);
+            //Toast.makeText(context, "Added successfully", Toast.LENGTH_SHORT).show();
+            //addDetailsCustomAdapter.notifyDataSetChanged();
+            //Intent intent=new Intent(context,MainActivity.class);
 
-                dismiss();
+            dismiss();
 
-            }
-        });
-    }
+        }
+    });
+}
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateLabel() {
