@@ -95,8 +95,10 @@ public class MainActivity extends AppCompatActivity {
             completedList.add(toDoDatas.get(AddDetailsCustomAdapter.position));
             ContentValues val=new ContentValues();
             val.put(Constants.KEY_STATUS,"1");
-            dbHelper.update(Constants.TO_DO_LIST,val,completedList.get(0).getId(),null);
-            updateDetailsCustomAdapter.notifyDataSetChanged();
+            String where = "id=?";
+            dbHelper.update(Constants.TO_DO_LIST,val,where,new String[]{completedList.get(0).getId()});
+            readAllData();
+            //updateDetailsCustomAdapter.notifyDataSetChanged();
 
             /*dbHelper.completeUpdate(updateList);
             String query="UPDATE "+ Constants.TO_DO_LIST+" SET "+Constants.KEY_STATUS+" =1 "

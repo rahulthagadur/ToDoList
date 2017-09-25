@@ -104,15 +104,17 @@ public class DBHelper {
     }
 
     //to delete the data
-    public void  delete(String tablename, String where, String[] whereArgs) {
+    public int  delete(String tablename, String where, String[] whereArgs) {
+        int count=0;
         try {
             db.beginTransaction();
-            db.delete(tablename, where, whereArgs);
+            count=db.delete(tablename, where, whereArgs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             db.endTransaction();
         }
+        return count;
     }
 
     //to update the data in the database

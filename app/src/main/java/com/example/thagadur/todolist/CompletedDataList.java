@@ -67,8 +67,8 @@ public class CompletedDataList extends AppCompatActivity {
             System.out.println("hellaaa"+updateList.get(0).getId());
 //            ContentValues val=new ContentValues();
 //            val.put(Constants.KEY_STATUS,"1");
-            String where = "id=?";
-            dbHelper.delete(Constants.TO_DO_LIST,where,new String[]{updateList.get(0).getId()});
+            String where = "id=";
+            dbHelper.delete(Constants.TO_DO_LIST,Constants.KEY_ID+"=",new String[]{updateList.get(0).getId()});
             toDoDatas = dbHelper.getStatusData();
             updateDetailsCustomAdapter= new UpdateDetailsCustomAdapter(context, toDoDatas);
             toDoList.setAdapter(updateDetailsCustomAdapter);
