@@ -109,6 +109,7 @@ public class DBHelper {
         try {
             db.beginTransaction();
             count=db.delete(tablename, where, whereArgs);
+            db.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

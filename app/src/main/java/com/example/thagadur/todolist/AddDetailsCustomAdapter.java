@@ -68,6 +68,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
                 public boolean onLongClick(View view) {
 
                     position = getAdapterPosition();
+
                     /*UpdateDetailsDialog updateDetailsDialog=new UpdateDetailsDialog(context);
                     updateDetailsDialog.show();*/
                     Toast.makeText(context, "Selected Position=" + position, Toast.LENGTH_LONG).show();

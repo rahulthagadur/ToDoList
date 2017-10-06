@@ -66,9 +66,10 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
                 public boolean onLongClick(View view) {
 
                     position=getAdapterPosition();
+                    //id=Integer.parseInt(todoList.get(position).getId());
                     /*UpdateDetailsDialog updateDetailsDialog=new UpdateDetailsDialog(context);
                     updateDetailsDialog.show();*/
-                    Toast.makeText(context,"Selected Position="+position,Toast.LENGTH_LONG).show();
+                   // Toast.makeText(context,"Selected Position="+position,Toast.LENGTH_LONG).show();
                     return  false;
                 }
             });

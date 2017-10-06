@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.thagadur.todolist.database.DBHelper;
 import com.example.thagadur.todolist.model.ToDoData;
@@ -18,6 +19,8 @@ import com.example.thagadur.todolist.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.thagadur.todolist.MainActivity.updateList;
 
 //import static com.example.thagadur.todolist.MainActivity.addDetailsCustomAdapter;
 
@@ -29,7 +32,7 @@ public class CompletedDataList extends AppCompatActivity {
 
     RecyclerView toDoList;
     Context context;
-    ArrayList<ToDoData> updateList;
+    public static ArrayList<ToDoData> deleteItems;
     public static List<ToDoData> toDoDatas;
     public static UpdateDetailsCustomAdapter updateDetailsCustomAdapter;
     String title, description, dateTime;
@@ -46,12 +49,12 @@ public class CompletedDataList extends AppCompatActivity {
         toDoDatas = new ArrayList<>();
         ///readAllData();
         toDoDatas = dbHelper.getStatusData();
-        updateList = new ArrayList<>();
+
         toDoList = (RecyclerView) findViewById(R.id.to_do_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         toDoList.setLayoutManager(layoutManager);
 //        System.out.println("size"+toDoDatas.size());
-        updateDetailsCustomAdapter= new UpdateDetailsCustomAdapter(context, toDoDatas);
+        updateDetailsCustomAdapter = new UpdateDetailsCustomAdapter(context, toDoDatas);
         toDoList.setAdapter(updateDetailsCustomAdapter);
 
         registerForContextMenu(toDoList);
@@ -59,18 +62,23 @@ public class CompletedDataList extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle()=="Delete"){
+        if (item.getTitle() == "Delete") {
+            deleteItems = new ArrayList<>();
 
-            updateList.add(toDoDatas.get(AddDetailsCustomAdapter.position));
-            System.out.println("hellaaa"+updateList.get(0).getId());
+            deleteItems.add(toDoDatas.get(updateDetailsCustomAdapter.position));
+            //Toast.makeText(context, ""+deleteItems.get(0).getId(), Toast.LENGTH_SHORT).show();
+            System.out.println("hellaaa" + deleteItems.get(0).getId());
 //            ContentValues val=new ContentValues();
 //            val.put(Constants.KEY_STATUS,"1");
-            String where = "id=";
-            dbHelper.delete(Constants.TO_DO_LIST,Constants.KEY_ID+"=",new String[]{updateList.get(0).getId()});
+            String where = "id=?";
+            //db.delete(TABLE_BUS, KEY_BUS_NUM + " = ?", new String[] { bus_num });
+            int return_data=dbHelper.delete(Constants.TO_DO_LIST, where, new String[]{deleteItems.get(0).getId()});
             toDoDatas = dbHelper.getStatusData();
-            updateDetailsCustomAdapter= new UpdateDetailsCustomAdapter(context, toDoDatas);
+            Toast.makeText(context, "Deleted Data ID"+return_data, Toast.LENGTH_SHORT).show();
+            updateDetailsCustomAdapter = new UpdateDetailsCustomAdapter(context, toDoDatas);
             toDoList.setAdapter(updateDetailsCustomAdapter);
             updateDetailsCustomAdapter.notifyDataSetChanged();
         }

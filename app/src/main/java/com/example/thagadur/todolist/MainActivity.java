@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
@@ -29,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity mainActivity;
     RecyclerView toDoList;
     Context context;
-    ArrayList<ToDoData> updateList;
-    ArrayList<ToDoData> completedList;
+    public static ArrayList<ToDoData> updateList;
+    public static ArrayList<ToDoData> completedList;
     public static List<ToDoData> toDoDatas;
     String title, description, dateTime;
     DBHelper dbHelper;
@@ -48,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = CommonUtilities.getObject(context);
         toDoDatas = new ArrayList<>();
         toDoDatas = dbHelper.getAllData();
-        updateList = new ArrayList<>();
-        completedList= new ArrayList<>();
 
         toDoList = (RecyclerView) findViewById(R.id.to_do_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -79,24 +78,33 @@ public class MainActivity extends AppCompatActivity {
         addDetailsCustomAdapter.notifyDataSetChanged();
     }
 
-
+    /*@Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Select the option");
+        menu.add(0, 1, 0, "Update");
+        menu.add(0, 2, 1, "Completed");
+    }*/
 
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 //        ToDoData getdata=new ToDoData();
         if (item.getTitle() == "Update") {
+            updateList = new ArrayList<>();
+            Toast.makeText(context,""+position, Toast.LENGTH_SHORT).show();
             updateList.add(toDoDatas.get(AddDetailsCustomAdapter.position));
             updateDetailsDialog = new UpdateDetailsDialog(MainActivity.this, updateList);
             updateDetailsDialog.show();
             //Toast.makeText(context, "" + toDoDatas.get(AddDetailsCustomAdapter.position).getTitle(), Toast.LENGTH_SHORT).show();
         }
         else if (item.getTitle()=="Completed"){
+            completedList= new ArrayList<>();
             completedList.add(toDoDatas.get(AddDetailsCustomAdapter.position));
             ContentValues val=new ContentValues();
             val.put(Constants.KEY_STATUS,"1");
             String where = "id=?";
             dbHelper.update(Constants.TO_DO_LIST,val,where,new String[]{completedList.get(0).getId()});
+
             readAllData();
             //updateDetailsCustomAdapter.notifyDataSetChanged();
 
