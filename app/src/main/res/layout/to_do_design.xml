@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -8,32 +8,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Date"
+        android:textSize="20dp"
+        android:id="@+id/date_display"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:background="@android:color/holo_blue_light"
         android:gravity="center"/>
 
     <TextView
         android:id="@+id/textView_title"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/date_display"
         android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/textView_description"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textView_title"
         android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/textView_date"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textView_description"
         android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/textView_status"
-        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textView_date"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
-</LinearLayout>
+        android:text="TextView" />-->
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/thumb_completed"
+        android:src="@drawable/thumb_completed"
+        android:layout_below="@+id/textView_title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

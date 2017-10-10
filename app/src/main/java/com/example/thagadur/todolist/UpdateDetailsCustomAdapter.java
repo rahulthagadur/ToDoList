@@ -38,10 +38,11 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
 
     @Override
     public void onBindViewHolder(UpdateDetailsHolder holder, int position) {
+        holder.display_title_date.setText(todoList.get(position).getDate());
         holder.textView_title.setText(todoList.get(position).getTitle());
         holder.textView_description.setText(todoList.get(position).getDescription());
         holder.textView_date.setText(todoList.get(position).getDate());
-        holder.textView_status.setText(todoList.get(position).getId());
+//        holder.textView_status.setText(todoList.get(position).getId());
 
     }
 
@@ -52,13 +53,14 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
 
 
     public class UpdateDetailsHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-        TextView textView_title, textView_description, textView_date, textView_status;
+        TextView textView_title, textView_description, textView_date, textView_status ,display_title_date;
 
         public UpdateDetailsHolder(View itemView) {
             super(itemView);
+            display_title_date=(TextView)itemView.findViewById(R.id.date_display);
             textView_date = (TextView) itemView.findViewById(R.id.textView_date);
             textView_description = (TextView) itemView.findViewById(R.id.textView_description);
-            textView_status = (TextView) itemView.findViewById(R.id.textView_status);
+            //textView_status = (TextView) itemView.findViewById(R.id.textView_status);
             textView_title = (TextView) itemView.findViewById(R.id.textView_title);
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {

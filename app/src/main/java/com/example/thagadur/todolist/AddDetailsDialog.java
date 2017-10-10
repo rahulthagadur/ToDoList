@@ -64,6 +64,7 @@ public class AddDetailsDialog extends Dialog{
         setDatePicker = (EditText) findViewById(R.id.set_date);
         titleTextView= (EditText) findViewById(R.id.add_title);
         save=(Button)findViewById(R.id.save_button);
+        cancel=(Button)findViewById(R.id.cancel_button);
         descriptionTextView = (EditText) findViewById(R.id.add_description);
         myCalendar = Calendar.getInstance();
         dbHelper=DBHelper.getInstance(context);
@@ -105,6 +106,12 @@ public class AddDetailsDialog extends Dialog{
 
         }
     });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
