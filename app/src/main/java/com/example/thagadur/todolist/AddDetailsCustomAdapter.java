@@ -82,7 +82,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
             thumb_up=(ImageView)itemView.findViewById(R.id.thumb_completed);
 
 
-            //-------------------------doubt start here
+            /*//
             // ----------------------
             // Thumb Implementation Left
             thumb_up.setOnLongClickListener(new View.OnLongClickListener() {
@@ -100,7 +100,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
                     MainActivity.getInstance().readAllData();
                     return true;
                 }
-            });
+            });*/
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
