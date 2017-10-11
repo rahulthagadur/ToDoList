@@ -3,6 +3,7 @@ package com.example.thagadur.todolist;
 import android.content.ContentValues;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.example.thagadur.todolist.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 import static com.example.thagadur.todolist.MainActivity.completedList;
 
@@ -49,6 +51,8 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
 
     @Override
     public void onBindViewHolder(AddDetailsHolder holder, int position) {
+
+
         holder.display_title_date.setText(todoList.get(position).getDate());
         holder.textView_title.setText(todoList.get(position).getTitle());
         holder.textView_description.setText(todoList.get(position).getDescription());
@@ -76,22 +80,27 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
             //textView_status = (TextView) itemView.findViewById(R.id.textView_status);
             textView_title = (TextView) itemView.findViewById(R.id.textView_title);
             thumb_up=(ImageView)itemView.findViewById(R.id.thumb_completed);
-            //Thumb Implementation Left
-          /*  thumb_up.setOnLongClickListener(new View.OnLongClickListener() {
+
+
+            //-------------------------doubt start here
+            // ----------------------
+            // Thumb Implementation Left
+            thumb_up.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     position = getAdapterPosition();
-                    Toast.makeText(context, "current ="+position, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "current ="+position, Toast.LENGTH_SHORT).show();
                     String pos=Integer.toString(position);
-
+                    Toast.makeText(context, ""+pos, Toast.LENGTH_SHORT).show();
                     ContentValues val=new ContentValues();
                     val.put(Constants.KEY_STATUS,"1");
                     String where = "id=?";
-                    dbHelper.update(Constants.TO_DO_LIST,val,where,new String[]{pos});
-
+                    int i=dbHelper.update(Constants.TO_DO_LIST,val,where,new String[]{""+pos});
+                    Toast.makeText(context, "updated value="+i, Toast.LENGTH_SHORT).show();
+                    MainActivity.getInstance().readAllData();
                     return true;
                 }
-            });*/
+            });
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

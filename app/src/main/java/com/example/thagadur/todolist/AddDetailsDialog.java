@@ -94,16 +94,21 @@ public class AddDetailsDialog extends Dialog{
         save.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            inserDataIntoDB();
-            MainActivity.getInstance().readAllData();
-            //toDoDatas=dbHelper.getAllData();
+            if ((titleTextView.getText().toString().length()>4) && (descriptionTextView.getText().toString().length()>4)) {
+                inserDataIntoDB();
+                MainActivity.getInstance().readAllData();
+                //toDoDatas=dbHelper.getAllData();
 //                System.out.println("hello"+toDoDatas.get(2));
-            //Toast.makeText(context, "Added successfully", Toast.LENGTH_SHORT).show();
-            //addDetailsCustomAdapter.notifyDataSetChanged();
-            //Intent intent=new Intent(context,MainActivity.class);
+                //Toast.makeText(context, "Added successfully", Toast.LENGTH_SHORT).show();
+                //addDetailsCustomAdapter.notifyDataSetChanged();
+                //Intent intent=new Intent(context,MainActivity.class);
 
-            dismiss();
+                dismiss();
 
+            }
+        else{
+                Toast.makeText(context, "Please Input Sufficient Data to the fields", Toast.LENGTH_LONG).show();
+            }
         }
     });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -121,16 +126,19 @@ public class AddDetailsDialog extends Dialog{
         setDatePicker.setText(sdf.format(myCalendar.getTime()));
     }
 
-    public void inserDataIntoDB(){
-        ContentValues val=new ContentValues();
-        val.put(Constants.KEY_TITLE,titleTextView.getText().toString());
-        val.put(Constants.KEY_DATE,setDatePicker.getText().toString());
-        val.put(Constants.KEY_DESCRIPTION,descriptionTextView.getText().toString());
-        val.put(Constants.KEY_STATUS,0);
-        long id=dbHelper.insertContentVals(Constants.TO_DO_LIST,val);
-        Toast.makeText(context, "  hi"+id, Toast.LENGTH_SHORT).show();
+    public void inserDataIntoDB() {
+        if (titleTextView.getText().toString() != null && descriptionTextView.getText().toString() != null) {
+            ContentValues val = new ContentValues();
+            val.put(Constants.KEY_TITLE, titleTextView.getText().toString());
+            val.put(Constants.KEY_DATE, setDatePicker.getText().toString());
+            val.put(Constants.KEY_DESCRIPTION, descriptionTextView.getText().toString());
+            val.put(Constants.KEY_STATUS, 0);
+            long id = dbHelper.insertContentVals(Constants.TO_DO_LIST, val);
+            Toast.makeText(context, "  hi" + id, Toast.LENGTH_SHORT).show();
 //        addDetailsCustomAdapter.notifyDataSetChanged();
 //        dismiss();
+
+        }
     }
 
 }

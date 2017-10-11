@@ -101,13 +101,14 @@ public class UpdateDetailsDialog extends Dialog {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateDataIntoDB();
-                MainActivity.getInstance().updateAlldata();
+                if ((updateTitleTextView.getText().toString().length() > 4) && (updateDescriptionTextView.getText().toString().length() > 4)) {
+                    updateDataIntoDB();
+                    MainActivity.getInstance().updateAlldata();
 //                addDetailsCustomAdapter.notifyDataSetChanged();
-                dismiss();
+                    dismiss();
+                }
+
             }
-
-
         });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override

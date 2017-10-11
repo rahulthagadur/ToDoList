@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -53,6 +54,22 @@ public class MainActivity extends AppCompatActivity {
         toDoList = (RecyclerView) findViewById(R.id.to_do_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         toDoList.setLayoutManager(layoutManager);
+        toDoList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
         readAllData();
 //        System.out.println("size"+toDoDatas.size());
 
