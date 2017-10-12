@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Thagadur on 9/20/2017.
  */
 
-public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetailsCustomAdapter.UpdateDetailsHolder>  {
+public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetailsCustomAdapter.UpdateDetailsHolder> {
     Context context;
     ArrayList<ToDoData> toDoDatas;
     static int position;
@@ -26,16 +26,18 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
 
     /**
      * Constructor to initialise the values
+     *
      * @param context
      * @param todoList
      */
-    public UpdateDetailsCustomAdapter(Context context,List<ToDoData> todoList) {
+    public UpdateDetailsCustomAdapter(Context context, List<ToDoData> todoList) {
         this.context = context;
-        this.todoList=todoList;
+        this.todoList = todoList;
     }
 
     /**
      * onCreateViewHolder method to inflate the layout of particular row data
+     *
      * @param parent
      * @param viewType
      * @return
@@ -50,7 +52,8 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
     /**
      * onBindViewHolder --Here we are going to bind the data of the row to the custom adapter of the
      * RecylervView list
-     * @param holder--holds the row data
+     *
+     * @param holder--holds     the row data
      * @param position-position of the current row
      */
     @Override
@@ -63,6 +66,7 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
 
     /**
      * returns the count of the todolist
+     *
      * @return
      */
     @Override
@@ -76,11 +80,11 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
      */
 
     public class UpdateDetailsHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-        TextView textView_title, textView_description, textView_date, textView_status ,display_title_date;
+        TextView textView_title, textView_description, textView_date, textView_status, display_title_date;
 
         public UpdateDetailsHolder(View itemView) {
             super(itemView);
-            display_title_date=(TextView)itemView.findViewById(R.id.date_display);
+            display_title_date = (TextView) itemView.findViewById(R.id.date_display);
             textView_date = (TextView) itemView.findViewById(R.id.textView_date);
             textView_description = (TextView) itemView.findViewById(R.id.textView_description);
             textView_title = (TextView) itemView.findViewById(R.id.textView_title);
@@ -88,15 +92,16 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    position=getAdapterPosition();
-                    return  false;
+                    position = getAdapterPosition();
+                    return false;
                 }
             });
         }
+
         @Override
         public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select the option");
-            menu.add(0,1,0,"Delete");
+            menu.add(0, 1, 0, "Delete");
         }
     }
 }

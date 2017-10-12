@@ -14,12 +14,12 @@ import com.example.thagadur.todolist.utils.Constants;
 public class TableClass extends SQLiteOpenHelper {
 
     Context context;
-    String cQuery = "Create table IF NOT EXISTS " + Constants.TO_DO_LIST +"("
-            +Constants.KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"
-            +Constants.KEY_TITLE+" TEXT,"
-            +Constants.KEY_DESCRIPTION+" TEXT,"
-            +Constants.KEY_DATE+" TEXT,"
-            +Constants.KEY_STATUS+" INTEGER )";
+    String cQuery = "Create table IF NOT EXISTS " + Constants.TO_DO_LIST + "("
+            + Constants.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + Constants.KEY_TITLE + " TEXT,"
+            + Constants.KEY_DESCRIPTION + " TEXT,"
+            + Constants.KEY_DATE + " TEXT,"
+            + Constants.KEY_STATUS + " INTEGER )";
 
     public TableClass(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -28,12 +28,12 @@ public class TableClass extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-            sqLiteDatabase.execSQL(cQuery);
+        sqLiteDatabase.execSQL(cQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-            context.deleteDatabase(Constants.DATABASE_NAME);
-            onCreate(sqLiteDatabase);
+        context.deleteDatabase(Constants.DATABASE_NAME);
+        onCreate(sqLiteDatabase);
     }
 }

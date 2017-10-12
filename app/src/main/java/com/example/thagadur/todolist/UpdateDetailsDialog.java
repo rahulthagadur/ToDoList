@@ -16,11 +16,14 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
 import android.support.annotation.RequiresApi;
+
 import com.example.thagadur.todolist.database.DBHelper;
 import com.example.thagadur.todolist.model.ToDoData;
 import com.example.thagadur.todolist.utils.Constants;
+
 import android.widget.DatePicker;
 import android.app.DatePickerDialog;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,7 +40,7 @@ import static com.example.thagadur.todolist.MainActivity.updateDetailsDialog;
 public class UpdateDetailsDialog extends Dialog {
     /**
      * Declaration of the objects and data members
-      */
+     */
     Context context;
     TextView updateDatePicker;
     TextView updateTitleTextView;
@@ -48,8 +51,10 @@ public class UpdateDetailsDialog extends Dialog {
     DatePickerDialog.OnDateSetListener date;
     private RecyclerView mRecyclerList = null;
     ArrayList<ToDoData> updateList;
+
     /**
      * Constructor Initialisation
+     *
      * @param context
      */
     public UpdateDetailsDialog(@NonNull Context context, ArrayList<ToDoData> updateList) {
@@ -74,7 +79,7 @@ public class UpdateDetailsDialog extends Dialog {
         updateDatePicker = (EditText) findViewById(R.id.set_date);
         updateTitleTextView = (EditText) findViewById(R.id.add_title);
         save = (Button) findViewById(R.id.save_button);
-        cancel=(Button)findViewById(R.id.cancel_button);
+        cancel = (Button) findViewById(R.id.cancel_button);
         updateDescriptionTextView = (EditText) findViewById(R.id.add_description);
         dbHelper = DBHelper.getInstance(context);
         updateTitleTextView.setText(updateList.get(0).getTitle());
@@ -110,8 +115,7 @@ public class UpdateDetailsDialog extends Dialog {
                     updateDataIntoDB();
                     MainActivity.getInstance().updateAlldata();
                     dismiss();
-                }
-                else{
+                } else {
                     Toast.makeText(context, "Please Input Sufficient Data to the fields", Toast.LENGTH_LONG).show();
                 }
 
@@ -146,7 +150,7 @@ public class UpdateDetailsDialog extends Dialog {
         val.put(Constants.KEY_DESCRIPTION, updateDescriptionTextView.getText().toString());
         val.put(Constants.KEY_DATE, updateDatePicker.getText().toString());
         String where = "id=?";
-        int id=dbHelper.update(Constants.TO_DO_LIST,val,where,(new String[]{updateList.get(0).getId()+""}));
+        int id = dbHelper.update(Constants.TO_DO_LIST, val, where, (new String[]{updateList.get(0).getId() + ""}));
         //Toast.makeText(context, "rows updates"+id, Toast.LENGTH_SHORT).show();
     }
 }

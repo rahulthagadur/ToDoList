@@ -37,13 +37,13 @@ import static com.example.thagadur.todolist.MainActivity.toDoDatas;
  * Created by Thagadur on 9/15/2017.
  */
 
-public class AddDetailsDialog extends Dialog{
+public class AddDetailsDialog extends Dialog {
     Context context;
     //DatePicker datePicker;
     TextView setDatePicker;
     TextView titleTextView;
     TextView descriptionTextView;
-    Button save,cancel;
+    Button save, cancel;
     Calendar myCalendar;
     DBHelper dbHelper;
 
@@ -51,11 +51,12 @@ public class AddDetailsDialog extends Dialog{
 
     /**
      * Constructor Initialisation
+     *
      * @param context
      */
     public AddDetailsDialog(Context context) {
         super(context);
-        this.context=context;
+        this.context = context;
     }
 
     /**
@@ -69,12 +70,12 @@ public class AddDetailsDialog extends Dialog{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_details_dialog);
         setDatePicker = (EditText) findViewById(R.id.set_date);
-        titleTextView= (EditText) findViewById(R.id.add_title);
-        save=(Button)findViewById(R.id.save_button);
-        cancel=(Button)findViewById(R.id.cancel_button);
+        titleTextView = (EditText) findViewById(R.id.add_title);
+        save = (Button) findViewById(R.id.save_button);
+        cancel = (Button) findViewById(R.id.cancel_button);
         descriptionTextView = (EditText) findViewById(R.id.add_description);
         myCalendar = Calendar.getInstance();
-        dbHelper=DBHelper.getInstance(context);
+        dbHelper = DBHelper.getInstance(context);
 
         date = new DatePickerDialog.OnDateSetListener() {
 
@@ -90,33 +91,32 @@ public class AddDetailsDialog extends Dialog{
         };
 
         setDatePicker.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            new DatePickerDialog(getContext(), date, myCalendar
-                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-        }
-    });
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(getContext(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
         save.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if ((titleTextView.getText().toString().length()>4) && (descriptionTextView.getText().toString().length()>4)) {
-                inserDataIntoDB();
-                MainActivity.getInstance().readAllData();
-                dismiss();
+            @Override
+            public void onClick(View view) {
+                if ((titleTextView.getText().toString().length() > 4) && (descriptionTextView.getText().toString().length() > 4)) {
+                    inserDataIntoDB();
+                    MainActivity.getInstance().readAllData();
+                    dismiss();
+                } else {
+                    Toast.makeText(context, "Please Input Sufficient Data to the fields", Toast.LENGTH_LONG).show();
+                }
             }
-        else{
-                Toast.makeText(context, "Please Input Sufficient Data to the fields", Toast.LENGTH_LONG).show();
-            }
-        }
-    });
+        });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
             }
         });
-}
+    }
 
     /**
      * Setting the date and time in specific format

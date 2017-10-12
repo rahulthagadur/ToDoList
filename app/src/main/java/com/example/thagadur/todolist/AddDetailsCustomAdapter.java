@@ -38,6 +38,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
 
     /**
      * Constructor to initialise the values
+     *
      * @param context
      * @param todoList-- arraylist containg the elements set the value.
      */
@@ -51,6 +52,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
 
     /**
      * onCreateViewHolder method to inflate the layout of particular row data
+     *
      * @param parent
      * @param viewType
      * @return
@@ -65,8 +67,9 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
     /**
      * onBindViewHolder --Here we are going to bind the data of the row to the custom adapter of the
      * RecylervView list
+     *
      * @param holder-holds the row data
-     * @param position- position of the current row
+     * @param position-    position of the current row
      */
 
     @Override
@@ -80,6 +83,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
 
     /**
      * returns the count of the todolist
+     *
      * @return
      */
     @Override
@@ -97,12 +101,12 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
 
         public AddDetailsHolder(View itemView) {
             super(itemView);
-            display_title_date=(TextView)itemView.findViewById(R.id.date_display);
+            display_title_date = (TextView) itemView.findViewById(R.id.date_display);
             textView_date = (TextView) itemView.findViewById(R.id.textView_date);
             textView_description = (TextView) itemView.findViewById(R.id.textView_description);
             //textView_status = (TextView) itemView.findViewById(R.id.textView_status);
             textView_title = (TextView) itemView.findViewById(R.id.textView_title);
-            thumb_up=(ImageView)itemView.findViewById(R.id.thumb_completed);
+            thumb_up = (ImageView) itemView.findViewById(R.id.thumb_completed);
             /*//
             // ----------------------
             // Thumb Implementation Left
@@ -139,6 +143,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
 
         /**
          * CreateContextMenu for Update and completed task.
+         *
          * @param menu
          * @param view
          * @param menuInfo

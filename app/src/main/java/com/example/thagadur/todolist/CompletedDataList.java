@@ -63,9 +63,9 @@ public class CompletedDataList extends AppCompatActivity {
             deleteItems.add(toDoDatas.get(updateDetailsCustomAdapter.position));
             System.out.println("hellaaa" + deleteItems.get(0).getId());
             String where = "id=?";
-            int return_data=dbHelper.delete(Constants.TO_DO_LIST, where, new String[]{deleteItems.get(0).getId()});
+            int return_data = dbHelper.delete(Constants.TO_DO_LIST, where, new String[]{deleteItems.get(0).getId()});
             toDoDatas = dbHelper.getStatusData();
-            Toast.makeText(context, "Deleted Data ID"+return_data, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Deleted Data ID" + return_data, Toast.LENGTH_SHORT).show();
             updateDetailsCustomAdapter = new UpdateDetailsCustomAdapter(context, toDoDatas);
             toDoList.setAdapter(updateDetailsCustomAdapter);
             updateDetailsCustomAdapter.notifyDataSetChanged();

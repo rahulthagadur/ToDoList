@@ -27,6 +27,7 @@ public class DBHelper {
 
     /**
      * Constructor Initialisation
+     *
      * @param context
      */
     public DBHelper(Context context) {
@@ -74,9 +75,10 @@ public class DBHelper {
             db.beginTransaction();
             id = db.insert(tablename, null, contentValues);
             db.setTransactionSuccessful();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("exception of the insert command ");}finally {
+            System.out.println("exception of the insert command ");
+        } finally {
             db.endTransaction();
         }
         return id;
@@ -84,11 +86,11 @@ public class DBHelper {
 
 
     //to delete the data
-    public int  delete(String tablename, String where, String[] whereArgs) {
-        int count=0;
+    public int delete(String tablename, String where, String[] whereArgs) {
+        int count = 0;
         try {
             db.beginTransaction();
-            count=db.delete(tablename, where, whereArgs);
+            count = db.delete(tablename, where, whereArgs);
             db.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,46 +116,46 @@ public class DBHelper {
     }
 
     //getting all the data from the database
-    public List<ToDoData> getAllData(){
-        List<ToDoData> toDoList=new ArrayList<>();
+    public List<ToDoData> getAllData() {
+        List<ToDoData> toDoList = new ArrayList<>();
         //db=dbHelper.getReadableDatabase();
-        String query="SELECT * FROM "+Constants.TO_DO_LIST+" where "+Constants.KEY_STATUS+" = "+0;
+        String query = "SELECT * FROM " + Constants.TO_DO_LIST + " where " + Constants.KEY_STATUS + " = " + 0;
 
-        Cursor cursor=dbHelper.getReadableDatabase().rawQuery(query,null);
-        if (cursor.moveToFirst()){
+        Cursor cursor = dbHelper.getReadableDatabase().rawQuery(query, null);
+        if (cursor.moveToFirst()) {
             do {
-                ToDoData toDoData=new ToDoData();
+                ToDoData toDoData = new ToDoData();
                 toDoData.setId(cursor.getString(0).toString());
                 toDoData.setTitle(cursor.getString(1));
                 toDoData.setDescription(cursor.getString(2));
                 toDoData.setDate(cursor.getString(3));
                 toDoData.setStatus(cursor.getString(4));
                 toDoList.add(toDoData);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
-        System.out.println("size"+toDoList.size());
+        System.out.println("size" + toDoList.size());
         cursor.close();
         return toDoList;
     }
 
-    public List<ToDoData> getStatusData(){
-        List<ToDoData> toDoList=new ArrayList<>();
+    public List<ToDoData> getStatusData() {
+        List<ToDoData> toDoList = new ArrayList<>();
         //db=dbHelper.getReadableDatabase();
-        String query="SELECT * FROM "+Constants.TO_DO_LIST+" where "+Constants.KEY_STATUS+" = "+1;
+        String query = "SELECT * FROM " + Constants.TO_DO_LIST + " where " + Constants.KEY_STATUS + " = " + 1;
 
-        Cursor cursor=dbHelper.getReadableDatabase().rawQuery(query,null);
-        if (cursor.moveToFirst()){
+        Cursor cursor = dbHelper.getReadableDatabase().rawQuery(query, null);
+        if (cursor.moveToFirst()) {
             do {
-                ToDoData toDoData=new ToDoData();
+                ToDoData toDoData = new ToDoData();
                 toDoData.setId(cursor.getString(0).toString());
                 toDoData.setTitle(cursor.getString(1));
                 toDoData.setDescription(cursor.getString(2));
                 toDoData.setDate(cursor.getString(3));
                 toDoData.setStatus(cursor.getString(4));
                 toDoList.add(toDoData);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
-        System.out.println("size"+toDoList.size());
+        System.out.println("size" + toDoList.size());
         cursor.close();
         return toDoList;
     }

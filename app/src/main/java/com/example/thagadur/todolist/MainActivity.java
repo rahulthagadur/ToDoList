@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     String title, description, dateTime;
     DBHelper dbHelper;
     public static UpdateDetailsDialog updateDetailsDialog;
-    public  AddDetailsCustomAdapter addDetailsCustomAdapter;
+    public AddDetailsCustomAdapter addDetailsCustomAdapter;
     public static UpdateDetailsCustomAdapter updateDetailsCustomAdapter;
 
     @Override
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
-        mainActivity=this;
+        mainActivity = this;
         dbHelper = DBHelper.getInstance(context);
         dbHelper = CommonUtilities.getObject(context);
         toDoDatas = new ArrayList<>();
@@ -60,14 +60,14 @@ public class MainActivity extends AppCompatActivity {
         registerForContextMenu(toDoList);
     }
 
-    public static  MainActivity getInstance(){
+    public static MainActivity getInstance() {
         return mainActivity;
     }
 
     /**
      * Function to set the data change in of the recyclerView after Inserting the records
      */
-    public  void readAllData(){
+    public void readAllData() {
         toDoDatas = dbHelper.getAllData();
         addDetailsCustomAdapter = new AddDetailsCustomAdapter(context, toDoDatas);
         toDoList.setAdapter(addDetailsCustomAdapter);
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Function to set the data change in of the recyclerView after Updating the records
      */
-    public void updateAlldata(){
+    public void updateAlldata() {
         toDoDatas = dbHelper.getAllData();
         addDetailsCustomAdapter = new AddDetailsCustomAdapter(context, toDoDatas);
         toDoList.setAdapter(addDetailsCustomAdapter);
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Overriding the Context Menu items of Update and Completed option
+     *
      * @param item
      * @return
      */
@@ -97,14 +98,13 @@ public class MainActivity extends AppCompatActivity {
             updateList.add(toDoDatas.get(AddDetailsCustomAdapter.position));
             updateDetailsDialog = new UpdateDetailsDialog(MainActivity.this, updateList);
             updateDetailsDialog.show();
-        }
-        else if (item.getTitle()=="Completed"){
-            completedList= new ArrayList<>();
+        } else if (item.getTitle() == "Completed") {
+            completedList = new ArrayList<>();
             completedList.add(toDoDatas.get(AddDetailsCustomAdapter.position));
-            ContentValues val=new ContentValues();
-            val.put(Constants.KEY_STATUS,"1");
+            ContentValues val = new ContentValues();
+            val.put(Constants.KEY_STATUS, "1");
             String where = "id=?";
-            dbHelper.update(Constants.TO_DO_LIST,val,where,new String[]{completedList.get(0).getId()});
+            dbHelper.update(Constants.TO_DO_LIST, val, where, new String[]{completedList.get(0).getId()});
             readAllData();
         }
         return true;
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Inflating the Menu for the Options Settings
+     *
      * @param menu
      * @return
      */
@@ -122,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *Overriding rhe OptionsItemSelected to get populate the items in the toolbar
+     * Overriding rhe OptionsItemSelected to get populate the items in the toolbar
+     *
      * @param item
      * @return
      */
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.completed_display:
                 //Toast.makeText(context, "Complete Button clicked", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(MainActivity.this,CompletedDataList.class);
+                Intent intent = new Intent(MainActivity.this, CompletedDataList.class);
                 startActivity(intent);
         }
         return true;
