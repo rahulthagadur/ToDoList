@@ -111,6 +111,9 @@ public class UpdateDetailsDialog extends Dialog {
                     MainActivity.getInstance().updateAlldata();
                     dismiss();
                 }
+                else{
+                    Toast.makeText(context, "Please Input Sufficient Data to the fields", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -144,6 +147,6 @@ public class UpdateDetailsDialog extends Dialog {
         val.put(Constants.KEY_DATE, updateDatePicker.getText().toString());
         String where = "id=?";
         int id=dbHelper.update(Constants.TO_DO_LIST,val,where,(new String[]{updateList.get(0).getId()+""}));
-        Toast.makeText(context, "rows updates"+id, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "rows updates"+id, Toast.LENGTH_SHORT).show();
     }
 }

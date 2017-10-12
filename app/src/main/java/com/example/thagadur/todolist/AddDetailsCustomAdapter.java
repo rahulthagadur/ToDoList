@@ -131,7 +131,7 @@ public class AddDetailsCustomAdapter extends RecyclerView.Adapter<AddDetailsCust
                 @Override
                 public boolean onLongClick(View view) {
                     position = getAdapterPosition();
-                    Toast.makeText(context, "Selected Position=" + position, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context, "Selected Position=" + position, Toast.LENGTH_LONG).show();
                     return false;
                 }
             });

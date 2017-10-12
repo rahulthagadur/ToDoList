@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         if (item.getTitle() == "Update") {
             updateList = new ArrayList<>();
-            Toast.makeText(context,""+position, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,""+position, Toast.LENGTH_SHORT).show();
             updateList.add(toDoDatas.get(AddDetailsCustomAdapter.position));
             updateDetailsDialog = new UpdateDetailsDialog(MainActivity.this, updateList);
             updateDetailsDialog.show();
@@ -130,12 +130,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                Toast.makeText(this, "clicked plus button", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "clicked plus button", Toast.LENGTH_SHORT).show();
                 AddDetailsDialog addDetailsDialog = new AddDetailsDialog(MainActivity.this);
                 addDetailsDialog.show();
                 break;
             case R.id.completed_display:
-                Toast.makeText(context, "Complete Button clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Complete Button clicked", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(MainActivity.this,CompletedDataList.class);
                 startActivity(intent);
         }
