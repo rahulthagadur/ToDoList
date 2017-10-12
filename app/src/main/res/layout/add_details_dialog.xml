@@ -17,7 +17,7 @@
         android:text="Enter the Details"
         android:textAppearance="?android:textAppearanceLarge" />
 
-    <!--name ,phoneNumber and Date of birth EditText-->
+    <!--name ,phoneNumber and Date Picker EditText-->
     <EditText
         android:id="@+id/add_title"
         android:layout_width="match_parent"
