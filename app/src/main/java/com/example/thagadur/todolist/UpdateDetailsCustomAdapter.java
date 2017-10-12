@@ -24,11 +24,22 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
     static int position;
     List<ToDoData> todoList = new ArrayList<>();
 
+    /**
+     * Constructor to initialise the values
+     * @param context
+     * @param todoList
+     */
     public UpdateDetailsCustomAdapter(Context context,List<ToDoData> todoList) {
         this.context = context;
         this.todoList=todoList;
     }
 
+    /**
+     * onCreateViewHolder method to inflate the layout of particular row data
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public UpdateDetailsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.to_do_design, parent, false);
@@ -36,21 +47,33 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
         return myView;
     }
 
+    /**
+     * onBindViewHolder --Here we are going to bind the data of the row to the custom adapter of the
+     * RecylervView list
+     * @param holder--holds the row data
+     * @param position-position of the current row
+     */
     @Override
     public void onBindViewHolder(UpdateDetailsHolder holder, int position) {
         holder.display_title_date.setText(todoList.get(position).getDate());
         holder.textView_title.setText(todoList.get(position).getTitle());
         holder.textView_description.setText(todoList.get(position).getDescription());
         holder.textView_date.setText(todoList.get(position).getDate());
-//        holder.textView_status.setText(todoList.get(position).getId());
-
     }
 
+    /**
+     * returns the count of the todolist
+     * @return
+     */
     @Override
     public int getItemCount() {
         return todoList.size();
     }
 
+    /**
+     * Initialisation of the layout items and calling the OnclickListner items of it
+     * to perform specific operation on click of the event
+     */
 
     public class UpdateDetailsHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView textView_title, textView_description, textView_date, textView_status ,display_title_date;
@@ -60,25 +83,16 @@ public class UpdateDetailsCustomAdapter extends RecyclerView.Adapter<UpdateDetai
             display_title_date=(TextView)itemView.findViewById(R.id.date_display);
             textView_date = (TextView) itemView.findViewById(R.id.textView_date);
             textView_description = (TextView) itemView.findViewById(R.id.textView_description);
-            //textView_status = (TextView) itemView.findViewById(R.id.textView_status);
             textView_title = (TextView) itemView.findViewById(R.id.textView_title);
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-
                     position=getAdapterPosition();
-                    //id=Integer.parseInt(todoList.get(position).getId());
-                    /*UpdateDetailsDialog updateDetailsDialog=new UpdateDetailsDialog(context);
-                    updateDetailsDialog.show();*/
-                   // Toast.makeText(context,"Selected Position="+position,Toast.LENGTH_LONG).show();
                     return  false;
                 }
             });
         }
-
-
-
         @Override
         public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select the option");

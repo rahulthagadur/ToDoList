@@ -1,12 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <!--Menu Option for Adding the New Item -->
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/add_new_task"
         android:orderInCategory="100"
         android:title="Add"
         app:showAsAction="always" />
+
+    <!--Menu Option for starting New Intent which opens the Completed
+    List Of items-->
     <item
         android:id="@+id/completed_display"
         android:icon="@drawable/incomplete"

@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="5dp">
+    <!--Design of the particular Row in the Recycler View ,
+        Used to set the data in to the List -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,15 +43,7 @@
         android:layout_height="wrap_content"
         android:text="TextView" />
 
-   <!-- <TextView
-        android:id="@+id/textView_status"
-        android:layout_marginTop="8dp"
-        android:layout_below="@+id/textView_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />-->
-
-    <ImageView
+       <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/thumb_completed"

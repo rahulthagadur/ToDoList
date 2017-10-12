@@ -49,18 +49,25 @@ public class AddDetailsDialog extends Dialog{
 
     DatePickerDialog.OnDateSetListener date;
 
+    /**
+     * Constructor Initialisation
+     * @param context
+     */
     public AddDetailsDialog(Context context) {
         super(context);
         this.context=context;
     }
 
+    /**
+     * Initialisation of the layout items and calling the OnclickListner items of it
+     * to perform specific operation on click of the event
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_details_dialog);
-        //setDatePicker = (TextView) findViewById(R.id.set_date);
         setDatePicker = (EditText) findViewById(R.id.set_date);
         titleTextView= (EditText) findViewById(R.id.add_title);
         save=(Button)findViewById(R.id.save_button);
@@ -69,7 +76,6 @@ public class AddDetailsDialog extends Dialog{
         myCalendar = Calendar.getInstance();
         dbHelper=DBHelper.getInstance(context);
 
-        //EditText edittext= (EditText) findViewById(R.id.Birthday);
         date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -97,14 +103,7 @@ public class AddDetailsDialog extends Dialog{
             if ((titleTextView.getText().toString().length()>4) && (descriptionTextView.getText().toString().length()>4)) {
                 inserDataIntoDB();
                 MainActivity.getInstance().readAllData();
-                //toDoDatas=dbHelper.getAllData();
-//                System.out.println("hello"+toDoDatas.get(2));
-                //Toast.makeText(context, "Added successfully", Toast.LENGTH_SHORT).show();
-                //addDetailsCustomAdapter.notifyDataSetChanged();
-                //Intent intent=new Intent(context,MainActivity.class);
-
                 dismiss();
-
             }
         else{
                 Toast.makeText(context, "Please Input Sufficient Data to the fields", Toast.LENGTH_LONG).show();
@@ -119,6 +118,9 @@ public class AddDetailsDialog extends Dialog{
         });
 }
 
+    /**
+     * Setting the date and time in specific format
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateLabel() {
         String myFormat = "MM/dd/yy"; //In which you need put here
@@ -126,6 +128,9 @@ public class AddDetailsDialog extends Dialog{
         setDatePicker.setText(sdf.format(myCalendar.getTime()));
     }
 
+    /**
+     * Inserting the data into the table by inputting the contents of the rows
+     */
     public void inserDataIntoDB() {
         if (titleTextView.getText().toString() != null && descriptionTextView.getText().toString() != null) {
             ContentValues val = new ContentValues();
@@ -135,9 +140,6 @@ public class AddDetailsDialog extends Dialog{
             val.put(Constants.KEY_STATUS, 0);
             long id = dbHelper.insertContentVals(Constants.TO_DO_LIST, val);
             Toast.makeText(context, "  hi" + id, Toast.LENGTH_SHORT).show();
-//        addDetailsCustomAdapter.notifyDataSetChanged();
-//        dismiss();
-
         }
     }
 

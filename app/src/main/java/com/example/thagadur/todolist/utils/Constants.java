@@ -4,6 +4,9 @@ package com.example.thagadur.todolist.utils;
  * Created by Thagadur on 9/14/2017.
  */
 
+/**
+ * Defining the Database and Table Entities
+ */
 public class Constants {
     //      Database Name and version
     public static final String DATABASE_NAME = "toDoDatabase.db";

@@ -25,6 +25,10 @@ public class DBHelper {
     private final TableClass dbHelper;
     private static DBHelper db_helper;
 
+    /**
+     * Constructor Initialisation
+     * @param context
+     */
     public DBHelper(Context context) {
         this.context = context;
         dbHelper = new TableClass(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
@@ -64,7 +68,6 @@ public class DBHelper {
     }
 
     //insert values into DB
-    //insert values into DB
     public long insertContentVals(String tablename, ContentValues contentValues) {
         long id = 0;
         try {
@@ -79,29 +82,6 @@ public class DBHelper {
         return id;
     }
 
-    //
-    public Cursor getTableRecords(String tablename, String[] columns, String where, String orderBy) {
-        Cursor c = db.query(false, tablename, columns, where, null, null, null, orderBy, null);
-        return c;
-    }
-
-    //Total number of counts
-    public int getFullContent(String tablename, String where) {
-        int rowCount = 0;
-        Cursor c = db.query(false, tablename, null, where, null, null, null, null, null);
-        try {
-            c.moveToFirst();
-            if (c != null) {
-                rowCount = c.getCount();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            c.close();
-        }
-        return rowCount;
-    }
 
     //to delete the data
     public int  delete(String tablename, String where, String[] whereArgs) {
@@ -133,29 +113,7 @@ public class DBHelper {
         return rowCount;
     }
 
-    //this method will give single row
-    public String getValue(String tablename, String column, String where) {
-        Cursor cur = db.query(false, tablename, new String[]{column}, where, null, null, null, Constants.KEY_ID, null);
-        String value = "";
-        try {
-            if (cur.moveToFirst()) {
-                value = cur.getString(0);
-
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            cur.close();
-        }
-        return value;
-    }
-
     //getting all the data from the database
-
-
-
     public List<ToDoData> getAllData(){
         List<ToDoData> toDoList=new ArrayList<>();
         //db=dbHelper.getReadableDatabase();

@@ -42,24 +42,17 @@ public class CompletedDataList extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.completed_list);
-
         context = this;
         dbHelper = DBHelper.getInstance(context);
         dbHelper = CommonUtilities.getObject(context);
         toDoDatas = new ArrayList<>();
-        ///readAllData();
         toDoDatas = dbHelper.getStatusData();
-
         toDoList = (RecyclerView) findViewById(R.id.to_do_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         toDoList.setLayoutManager(layoutManager);
-//        System.out.println("size"+toDoDatas.size());
         updateDetailsCustomAdapter = new UpdateDetailsCustomAdapter(context, toDoDatas);
         toDoList.setAdapter(updateDetailsCustomAdapter);
-
         registerForContextMenu(toDoList);
-
-
     }
 
 
@@ -67,14 +60,9 @@ public class CompletedDataList extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         if (item.getTitle() == "Delete") {
             deleteItems = new ArrayList<>();
-
             deleteItems.add(toDoDatas.get(updateDetailsCustomAdapter.position));
-            //Toast.makeText(context, ""+deleteItems.get(0).getId(), Toast.LENGTH_SHORT).show();
             System.out.println("hellaaa" + deleteItems.get(0).getId());
-//            ContentValues val=new ContentValues();
-//            val.put(Constants.KEY_STATUS,"1");
             String where = "id=?";
-            //db.delete(TABLE_BUS, KEY_BUS_NUM + " = ?", new String[] { bus_num });
             int return_data=dbHelper.delete(Constants.TO_DO_LIST, where, new String[]{deleteItems.get(0).getId()});
             toDoDatas = dbHelper.getStatusData();
             Toast.makeText(context, "Deleted Data ID"+return_data, Toast.LENGTH_SHORT).show();

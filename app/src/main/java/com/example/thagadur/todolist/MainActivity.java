@@ -27,7 +27,9 @@ import static android.media.CamcorderProfile.get;
 import static com.example.thagadur.todolist.AddDetailsCustomAdapter.position;
 
 public class MainActivity extends AppCompatActivity {
-
+    /**
+     * Iinitialisation of all data member and the objects of specific class
+     */
     public static MainActivity mainActivity;
     RecyclerView toDoList;
     Context context;
@@ -54,33 +56,17 @@ public class MainActivity extends AppCompatActivity {
         toDoList = (RecyclerView) findViewById(R.id.to_do_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         toDoList.setLayoutManager(layoutManager);
-        toDoList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
         readAllData();
-//        System.out.println("size"+toDoDatas.size());
-
         registerForContextMenu(toDoList);
-
     }
 
     public static  MainActivity getInstance(){
         return mainActivity;
     }
 
+    /**
+     * Function to set the data change in of the recyclerView after Inserting the records
+     */
     public  void readAllData(){
         toDoDatas = dbHelper.getAllData();
         addDetailsCustomAdapter = new AddDetailsCustomAdapter(context, toDoDatas);
@@ -88,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
         addDetailsCustomAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Function to set the data change in of the recyclerView after Updating the records
+     */
     public void updateAlldata(){
         toDoDatas = dbHelper.getAllData();
         addDetailsCustomAdapter = new AddDetailsCustomAdapter(context, toDoDatas);
@@ -95,24 +84,19 @@ public class MainActivity extends AppCompatActivity {
         addDetailsCustomAdapter.notifyDataSetChanged();
     }
 
-    /*@Override
-    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle("Select the option");
-        menu.add(0, 1, 0, "Update");
-        menu.add(0, 2, 1, "Completed");
-    }*/
-
-
+    /**
+     * Overriding the Context Menu items of Update and Completed option
+     * @param item
+     * @return
+     */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-//        ToDoData getdata=new ToDoData();
         if (item.getTitle() == "Update") {
             updateList = new ArrayList<>();
             Toast.makeText(context,""+position, Toast.LENGTH_SHORT).show();
             updateList.add(toDoDatas.get(AddDetailsCustomAdapter.position));
             updateDetailsDialog = new UpdateDetailsDialog(MainActivity.this, updateList);
             updateDetailsDialog.show();
-            //Toast.makeText(context, "" + toDoDatas.get(AddDetailsCustomAdapter.position).getTitle(), Toast.LENGTH_SHORT).show();
         }
         else if (item.getTitle()=="Completed"){
             completedList= new ArrayList<>();
@@ -121,25 +105,27 @@ public class MainActivity extends AppCompatActivity {
             val.put(Constants.KEY_STATUS,"1");
             String where = "id=?";
             dbHelper.update(Constants.TO_DO_LIST,val,where,new String[]{completedList.get(0).getId()});
-
             readAllData();
-            //updateDetailsCustomAdapter.notifyDataSetChanged();
-
-            /*dbHelper.completeUpdate(updateList);
-            String query="UPDATE "+ Constants.TO_DO_LIST+" SET "+Constants.KEY_STATUS+" =1 "
-                    +" WHERE "+updateList.get(0).getId();
-*/
         }
-
         return true;
     }
 
+    /**
+     * Inflating the Menu for the Options Settings
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
+    /**
+     *Overriding rhe OptionsItemSelected to get populate the items in the toolbar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -152,8 +138,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context, "Complete Button clicked", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(MainActivity.this,CompletedDataList.class);
                 startActivity(intent);
-//                AddDetailsCustomAdapter addDetailsCustomAdapter=new AddDetailsCustomAdapter(context);
-//                toDoList.setAdapter(addDetailsCustomAdapter);
         }
         return true;
     }

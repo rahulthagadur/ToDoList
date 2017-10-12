@@ -35,6 +35,9 @@ import static com.example.thagadur.todolist.MainActivity.updateDetailsDialog;
  */
 
 public class UpdateDetailsDialog extends Dialog {
+    /**
+     * Declaration of the objects and data members
+      */
     Context context;
     TextView updateDatePicker;
     TextView updateTitleTextView;
@@ -43,18 +46,23 @@ public class UpdateDetailsDialog extends Dialog {
     Calendar myCalendar;
     DBHelper dbHelper;
     DatePickerDialog.OnDateSetListener date;
-
     private RecyclerView mRecyclerList = null;
-
     ArrayList<ToDoData> updateList;
-
+    /**
+     * Constructor Initialisation
+     * @param context
+     */
     public UpdateDetailsDialog(@NonNull Context context, ArrayList<ToDoData> updateList) {
-        //, ArrayList<ToDoData> updateList) //{
         super(context);
         this.context = context;
-//        this.mRecyclerList=toDoList;
         this.updateList = updateList;
     }
+
+    /**
+     * Initialisation of the layout items and calling the OnclickListner items of it
+     * to perform specific operation on click of the event
+     */
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +76,11 @@ public class UpdateDetailsDialog extends Dialog {
         save = (Button) findViewById(R.id.save_button);
         cancel=(Button)findViewById(R.id.cancel_button);
         updateDescriptionTextView = (EditText) findViewById(R.id.add_description);
-//        myCalendar = Calendar.getInstance();
         dbHelper = DBHelper.getInstance(context);
-        //Setting the  text in the fields
         updateTitleTextView.setText(updateList.get(0).getTitle());
         updateDescriptionTextView.setText(updateList.get(0).getDescription());
         updateDatePicker.setText(updateList.get(0).getDate());
 
-        //EditText edittext= (EditText) findViewById(R.id.Birthday);
         date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -104,7 +109,6 @@ public class UpdateDetailsDialog extends Dialog {
                 if ((updateTitleTextView.getText().toString().length() > 4) && (updateDescriptionTextView.getText().toString().length() > 4)) {
                     updateDataIntoDB();
                     MainActivity.getInstance().updateAlldata();
-//                addDetailsCustomAdapter.notifyDataSetChanged();
                     dismiss();
                 }
 
@@ -118,6 +122,10 @@ public class UpdateDetailsDialog extends Dialog {
         });
     }
 
+
+    /**
+     * Setting the date and time in specific format
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateLabel() {
         String myFormat = "MM/dd/yy"; //In which you need put here
@@ -125,6 +133,10 @@ public class UpdateDetailsDialog extends Dialog {
         updateDatePicker.setText(sdf.format(myCalendar.getTime()));
     }
 
+
+    /**
+     * Updating the data into the table by Updating the contents of the row
+     */
     public void updateDataIntoDB() {
         ContentValues val = new ContentValues();
         val.put(Constants.KEY_TITLE, updateTitleTextView.getText().toString());
@@ -132,7 +144,6 @@ public class UpdateDetailsDialog extends Dialog {
         val.put(Constants.KEY_DATE, updateDatePicker.getText().toString());
         String where = "id=?";
         int id=dbHelper.update(Constants.TO_DO_LIST,val,where,(new String[]{updateList.get(0).getId()+""}));
-
         Toast.makeText(context, "rows updates"+id, Toast.LENGTH_SHORT).show();
     }
 }
